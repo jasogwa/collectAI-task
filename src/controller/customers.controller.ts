@@ -1,8 +1,9 @@
+import { Request, Response } from "express";
 import fs from "fs/promises";
 import fetch from 'node-fetch';
 import { csvToJson,getSchedule } from "../model/customers.model";
  
-export const readCustomersData = async () => {
+export const readCustomersData = async (req: Request, res: Response) => {
 
     try {
         const data = await fs.readFile("./src/data/customers.csv", { encoding: 'utf8' });
@@ -42,7 +43,8 @@ export const readCustomersData = async () => {
                 }
             }
         }
-        
+        res.json('Email sent to customers with unsettled invoices');
+
     } catch (error) {
         console.log(error)
     }
