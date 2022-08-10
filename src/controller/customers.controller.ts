@@ -4,7 +4,6 @@ import fetch from 'node-fetch';
 import { csvToJson,getSchedule } from "../model/customers.model";
  
 export const readCustomersData = async (req: Request, res: Response) => {
-
     try {
         const data = await fs.readFile("./src/data/customers.csv", { encoding: 'utf8' });
         const csvjson = csvToJson(data);
@@ -40,10 +39,10 @@ export const readCustomersData = async (req: Request, res: Response) => {
                             }
                         }
                     )
-                    
                 }
             }
         }
+        
         res.json('Email sent to customers with unsettled invoices');
 
     } catch (error) {
@@ -52,22 +51,25 @@ export const readCustomersData = async (req: Request, res: Response) => {
 }
 
 const callService = async (data:any) => {
+    try {
+        const response = await fetch('http://localhost:9090/messages', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`)
+        }
+        const result = (await response.json());
 
-    const response = await fetch('http://localhost:9090/messages', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-    });
-    if (!response.ok) {
-        throw new Error(`Error: ${response.status}`)
+        return result;
+
+    } catch (error) {
+        console.log('Error: ', error);
     }
-    const result = (await response.json());
-    
-    return result;
-   
 }
 
 
