@@ -8,8 +8,9 @@ export const readCustomersData = async (req: Request, res: Response) => {
         const data = await fs.readFile("./src/data/customers.csv", { encoding: 'utf8' });
         const csvjson = csvToJson(data);
         const schedule: Array<number>[] = getSchedule(csvjson);
+        let url = 'http://localhost:9090/messages';
         let time:any = [];
-
+        
         for(let i = 0; i < schedule.length; i++) {
             for(let j = 0; j < csvjson.length; j++) {
 
@@ -20,7 +21,8 @@ export const readCustomersData = async (req: Request, res: Response) => {
                         "email": csvjson[j].email,
                         "text": csvjson[j].text
                     };
-                    let response = callService(data);
+
+                    let response = callService(data,url);
                     response.then(
                         (resp) => {
                             if(resp.paid !== true) {
@@ -31,8 +33,10 @@ export const readCustomersData = async (req: Request, res: Response) => {
                                 let next_time = parseInt(next_+"000");
                                 
                                 setTimeout(() => {
-                                    //write email sending function here ....
-                                    console.log("Email sent to: \n",resp)
+                                    //call Email sending function here ....
+                                    let send = sendEmail();
+                                    console.log(send + "\n", resp)
+                                    
                                 }, next_time)
                             }
                         }
@@ -46,9 +50,9 @@ export const readCustomersData = async (req: Request, res: Response) => {
     }
 }
 
-const callService = async (data:any) => {
+const callService = async (data:any,url:string) => {
     try {
-        const response = await fetch('http://localhost:9090/messages', {
+        const response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -68,4 +72,6 @@ const callService = async (data:any) => {
     }
 }
 
-
+const sendEmail = () => {
+    return "Email sent to ... : ";
+}
