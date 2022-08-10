@@ -22,9 +22,9 @@ export const readCustomersData = async (req: Request, res: Response) => {
                         "text": csvjson[j].text
                     };
 
-                    let res = callService(data);
+                    let response = callService(data);
                     
-                    res.then(
+                    response.then(
                         (resp) => {
                             if(resp.paid !== true) {
                                 let current = parseInt(schedule[i]+"");
@@ -34,6 +34,7 @@ export const readCustomersData = async (req: Request, res: Response) => {
                                 let next_time = parseInt(next_+"000");
                                 
                                 setTimeout(() => {
+                                    //write email sending function here ....
                                     console.log("Email sent to: \n",resp)
                                 }, next_time)
                             }
