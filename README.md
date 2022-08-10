@@ -14,9 +14,10 @@ $ npm install
 ```bash
 # development
 $ npm run dev
+```
 
 ## Testing Endpoint 
 
-```
+```bash
 Send get request to http://localhost:3000/customers
 ```
