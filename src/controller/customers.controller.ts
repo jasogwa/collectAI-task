@@ -14,15 +14,13 @@ export const readCustomersData = async (req: Request, res: Response) => {
             for(let j = 0; j < csvjson.length; j++) {
 
                 let json_schedule = csvjson[j].schedule.split('-');
-                if(json_schedule.includes(schedule[i]+"s")) {
 
+                if(json_schedule.includes(schedule[i]+"s")) {
                     let data = {
                         "email": csvjson[j].email,
                         "text": csvjson[j].text
                     };
-
                     let response = callService(data);
-                    
                     response.then(
                         (resp) => {
                             if(resp.paid !== true) {
@@ -42,9 +40,7 @@ export const readCustomersData = async (req: Request, res: Response) => {
                 }
             }
         }
-        
-        res.json('Email sent to customers with unsettled invoices');
-
+        res.json({message:'Email sent to customers with unsettled invoices'});
     } catch (error) {
         console.log(error)
     }
