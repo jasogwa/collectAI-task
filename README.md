@@ -26,7 +26,7 @@ operating system and execute it.
 Send get request to http://localhost:3000/customers
 ```
 ```
-You will receive messages on the regarding Email sent to customers with unsettled invoices.
+You will receive messages on the console regarding Email sent to customers with unsettled invoices.
 ```
 
 ## Unit Testing
