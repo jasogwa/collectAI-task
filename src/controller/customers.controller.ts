@@ -14,7 +14,7 @@ export const readCustomersData = async (req: Request, res: Response) => {
         for(let i = 0; i < schedule.length; i++) {
             for(let j = 0; j < csvjson.length; j++) {
 
-                let json_schedule = csvjson[j].schedule.split('-');
+                let json_schedule = csvjson[j].schedule.toString().split('-');
 
                 if(json_schedule.includes(schedule[i]+"s")) {
                     let data = {
@@ -45,7 +45,7 @@ export const readCustomersData = async (req: Request, res: Response) => {
             }
             if(schedule.length - 1 === i) {
                 //kill service here
-                console.log(time);
+                //console.log(time);
             }
         }
         res.json({message:'Email sent to customers with unsettled invoices'});

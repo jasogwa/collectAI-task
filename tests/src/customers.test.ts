@@ -32,4 +32,4 @@ describe('getSchedule', () => {
         ]
         expect(getSchedule(json)).toEqual(intArray);
     })
-})
+});

@@ -1,8 +1,8 @@
 export const csvToJson = (csv:any) => {
-    let lines = csv.split("\n");
+    let lines = csv.toString().split("\n");
     
     let result = [];
-    let headers = lines[0].split(",");
+    let headers = lines[0].toString().split(",");
     for ( let i = 1; i < lines.length; i++ ) {
         let obj:any = {};
         let currentline = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -36,7 +36,7 @@ export const getSchedule = (res:any) => {
     let output: any[] = [];
 
     for( let i = 0; i < res.length; i++ ) {
-        let x = res[i].schedule.split("-");
+        let x = res[i].schedule.toString().split("-");
         for(let i in x) {
             result.push(x[i]);
         }
