@@ -19,7 +19,7 @@ $ npm run dev
 
 ## Testing Endpoint 
 ```
-select the binary of commservice suitable for your
+select the binary of commservice(in src/data/commservice.windows) suitable for your
 operating system and execute it.
 ```
 ```bash
