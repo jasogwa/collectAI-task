@@ -12,7 +12,7 @@ export const csvToJson = (csv:any) => {
         result.push(obj);  
     }
 
-    let result_ = clean(result);
+    const result_ = clean(result);
 
     let rs = JSON.parse(JSON.stringify(result_, (k,v) => v ?? ''));
 

@@ -7,8 +7,8 @@ export const readCustomersData = async (req: Request, res: Response) => {
     try {
         const data = await fs.readFile("./src/data/customers.csv", { encoding: 'utf8' });
         const csvjson = csvToJson(data);
-        const schedule: Array<number>[] = getSchedule(csvjson);
-        let url = 'http://localhost:9090/messages';
+        const schedule = getSchedule(csvjson);
+        const url = 'http://localhost:9090/messages';
         let time:any = [];
         
         for(let i = 0; i < schedule.length; i++) {
@@ -34,14 +34,18 @@ export const readCustomersData = async (req: Request, res: Response) => {
                                 
                                 setTimeout(() => {
                                     //call Email sending function here ....
-                                    let send = sendEmail();
+                                    const send = sendEmail();
                                     console.log(send + "\n", resp)
-                                    
+
                                 }, next_time)
                             }
                         }
                     )
                 }
+            }
+            if(schedule.length - 1 === i) {
+                //kill service here
+                console.log(time);
             }
         }
         res.json({message:'Email sent to customers with unsettled invoices'});
