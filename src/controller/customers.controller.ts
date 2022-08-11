@@ -43,10 +43,6 @@ export const readCustomersData = async (req: Request, res: Response) => {
                     )
                 }
             }
-            if(schedule.length - 1 === i) {
-                //kill service here
-                //console.log(time);
-            }
         }
         res.json({message:'Email sent to customers with unsettled invoices'});
     } catch (error) {
